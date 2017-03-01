@@ -24,11 +24,11 @@ public class ClassifyViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 1) {
-            return fragments.get(1);
+            return new SimpleFragment();
         } else if (position == 2) {
-            return fragments.get(2);
+            return new ZhihuDailyFragment();
         } else {
-            return fragments.get(0);
+            return new ZhihuDailyFragment();
         }
     }
 
