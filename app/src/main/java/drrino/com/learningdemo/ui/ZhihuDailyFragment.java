@@ -11,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +30,7 @@ public class ZhihuDailyFragment extends Fragment {
 
     @BindView(R.id.rv_daily) RecyclerView rvDaily;
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.fragment_container) FrameLayout fragmentContainer;
 
     private RetrofitHelper mRetrofitHelper;
     private ZhihuAdapter mAdapter;
@@ -52,6 +56,7 @@ public class ZhihuDailyFragment extends Fragment {
         showContent();
         bindListener();
     }
+
 
     private void initView() {
         swipeRefresh.setRefreshing(true);
@@ -102,5 +107,38 @@ public class ZhihuDailyFragment extends Fragment {
                 }
             }
         });
+    }
+
+
+    /**
+     * Refresh
+     */
+    public void refresh() {
+        if (getArguments().getInt("index", 0) > 0 && rvDaily != null) {
+            rvDaily.smoothScrollToPosition(0);
+        }
+    }
+
+
+    /**
+     * Called when a fragment will be displayed
+     */
+    public void willBeDisplayed() {
+        // Do what you want here, for example animate the content
+        if (fragmentContainer != null) {
+            Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+            fragmentContainer.startAnimation(fadeIn);
+        }
+    }
+
+
+    /**
+     * Called when a fragment will be hidden
+     */
+    public void willBeHidden() {
+        if (fragmentContainer != null) {
+            Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
+            fragmentContainer.startAnimation(fadeOut);
+        }
     }
 }
