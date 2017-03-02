@@ -2,6 +2,7 @@ package drrino.com.learningdemo;
 
 import android.app.Activity;
 import android.app.Application;
+import com.squareup.leakcanary.LeakCanary;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,9 @@ public class App extends Application {
     @Override public void onCreate() {
         super.onCreate();
         instance = this;
+
+        //初始化内存泄漏检测
+        LeakCanary.install(this);
     }
 
 

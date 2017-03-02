@@ -4,7 +4,9 @@ import drrino.com.learningdemo.BuildConfig;
 import drrino.com.learningdemo.Constants;
 import drrino.com.learningdemo.api.ZhihuApi;
 import drrino.com.learningdemo.bean.DailyListBean;
+import drrino.com.learningdemo.bean.DetailExtraBean;
 import drrino.com.learningdemo.bean.WelcomeBean;
+import drrino.com.learningdemo.bean.ZhihuDetailBean;
 import drrino.com.learningdemo.util.SystemUtil;
 import java.io.File;
 import java.io.IOException;
@@ -112,5 +114,13 @@ public class RetrofitHelper {
 
     public Observable<DailyListBean> fetchDailyBeforeListInfo(String date) {
         return zhihuApiService.getDailyBeforeList(date);
+    }
+
+    public Observable<ZhihuDetailBean> fetchDetailInfo(int id) {
+        return zhihuApiService.getDetailInfo(id);
+    }
+
+    public Observable<DetailExtraBean> fetchDetailExtraInfo(int id) {
+        return zhihuApiService.getDetailExtraInfo(id);
     }
 }
