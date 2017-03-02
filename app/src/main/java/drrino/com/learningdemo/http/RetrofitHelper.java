@@ -2,8 +2,9 @@ package drrino.com.learningdemo.http;
 
 import drrino.com.learningdemo.BuildConfig;
 import drrino.com.learningdemo.Constants;
-import drrino.com.learningdemo.ZhihuApi;
+import drrino.com.learningdemo.api.ZhihuApi;
 import drrino.com.learningdemo.bean.DailyListBean;
+import drrino.com.learningdemo.bean.WelcomeBean;
 import drrino.com.learningdemo.util.SystemUtil;
 import java.io.File;
 import java.io.IOException;
@@ -30,9 +31,11 @@ public class RetrofitHelper {
         zhihuApiService = getApiService(ZhihuApi.HOST, ZhihuApi.class);
     }
 
+
     public RetrofitHelper() {
         init();
     }
+
 
     private void initOkHttp() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -96,9 +99,16 @@ public class RetrofitHelper {
         return retrofit.create(clz);
     }
 
+
+    public Observable<WelcomeBean> fetchWelcomeInfo(String res) {
+        return zhihuApiService.getWelcomeInfo(res);
+    }
+
+
     public Observable<DailyListBean> fetchDailyListInfo() {
         return zhihuApiService.getDailyList();
     }
+
 
     public Observable<DailyListBean> fetchDailyBeforeListInfo(String date) {
         return zhihuApiService.getDailyBeforeList(date);

@@ -7,6 +7,7 @@
     <color name="colorCard">#FFFFFF</color>
     <color name="colorText">#2C2C2C</color>
     <color name="toast_bg">#dddfe0</color>
+    <color name="splash_logo">#FDCB01</color>
 
     <color name="news_unread">#000000</color>
     <color name="news_read">#898989</color>
