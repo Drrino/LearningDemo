@@ -8,7 +8,6 @@ import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.base.BaseActivity;
-import drrino.com.learningdemo.http.RetrofitHelper;
 import drrino.com.learningdemo.util.RxUtil;
 import drrino.com.learningdemo.widget.RotateTextView;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +23,6 @@ public class SplashActivity extends BaseActivity {
     @BindView(R.id.splash_bg) ImageView splashBg;
     @BindView(R.id.splash_author) RotateTextView splashAuthor;
 
-    private RetrofitHelper mRetrofitHelper = new RetrofitHelper();
     private static final String RES = "1080*1776";
 
 

@@ -1,6 +1,7 @@
 package drrino.com.learningdemo.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.bean.DailyListBean;
+import drrino.com.learningdemo.ui.activity.ZhihuDetailActivity;
 import java.util.List;
 
 public class TopAdapter extends PagerAdapter {
@@ -50,6 +52,11 @@ public class TopAdapter extends PagerAdapter {
         TextView textView = (TextView) view.findViewById(R.id.tv_top_title);
         Glide.with(mContext).load(topStoriesBeen.get(position).getImage()).into(imageView);
         textView.setText(topStoriesBeen.get(position).getTitle());
+        view.setOnClickListener(view1 -> {
+            Intent intent = new Intent(mContext, ZhihuDetailActivity.class);
+            intent.putExtra("id",topStoriesBeen.get(position).getId());
+            mContext.startActivity(intent);
+        });
         container.addView(view);
         return view;
     }

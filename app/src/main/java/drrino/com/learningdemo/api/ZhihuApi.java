@@ -69,7 +69,7 @@ public interface ZhihuApi {
      * 日报详情
      */
     @GET("news/{id}")
-    Observable<ZhihuDetailBean> getDetailInfo(@Path("id") int id);
+    Observable<ZhihuDetailBean> getDetailInfo(@Path("id") String id);
 
     /**
      * 日报的额外信息

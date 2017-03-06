@@ -1,12 +1,14 @@
 package drrino.com.learningdemo.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,6 +16,7 @@ import com.bumptech.glide.Glide;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.bean.DailyListBean;
 import drrino.com.learningdemo.bean.ZhihuItem;
+import drrino.com.learningdemo.ui.activity.ZhihuDetailActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -45,10 +48,12 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         appendList(dailyListBean);
     }
 
+
     public void setList(DailyListBean dailyStories) {
         mItems.clear();
         appendList(dailyStories);
     }
+
 
     public void appendList(DailyListBean dailyStories) {
         int positionStart = mItems.size();
@@ -76,7 +81,7 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         if (positionStart == 0) {
             notifyDataSetChanged();
-        }else{
+        } else {
             notifyItemRangeChanged(positionStart, itemCount);
         }
     }
@@ -93,9 +98,10 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             return new TopViewHolder(inflater.inflate(R.layout.zhihu_item_top, parent, false));
         } else if (viewType == TYPE_DATE) {
             return new DateViewHolder(inflater.inflate(R.layout.zhihu_item_date, parent, false));
-        } else if (viewType == TYPE_ITEM){
-            return new ContentViewHolder(inflater.inflate(R.layout.zhihu_item_daily, parent, false));
-        }else{
+        } else if (viewType == TYPE_ITEM) {
+            return new ContentViewHolder(
+                inflater.inflate(R.layout.zhihu_item_daily, parent, false));
+        } else {
             return null;
         }
     }
@@ -149,6 +155,11 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .load(mItems.get(position).getStories().getImages().get(0))
                 .centerCrop()
                 .into(((ContentViewHolder) holder).image);
+            ((ContentViewHolder) holder).dailyItem.setOnClickListener(view -> {
+                Intent intent = new Intent(mContext, ZhihuDetailActivity.class);
+                intent.putExtra("id",mItems.get(position).getStories().getId());
+                mContext.startActivity(intent);
+            });
         }
     }
 
@@ -158,12 +169,14 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    static class ContentViewHolder extends RecyclerView.ViewHolder {
+    private static class ContentViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_daily_item_title)
         TextView title;
         @BindView(R.id.iv_daily_item_image)
         ImageView image;
+        @BindView(R.id.daily_item)
+        LinearLayout dailyItem;
 
 
         ContentViewHolder(View itemView) {
@@ -173,19 +186,19 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    static class DateViewHolder extends RecyclerView.ViewHolder {
+    private static class DateViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_daily_date)
         TextView tvDate;
 
 
-        public DateViewHolder(View itemView) {
+        DateViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
 
 
-    static class TopViewHolder extends RecyclerView.ViewHolder {
+    private static class TopViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.vp_top)
         ViewPager mViewpager;
