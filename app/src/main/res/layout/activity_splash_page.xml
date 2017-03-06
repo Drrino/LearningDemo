@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/splash_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <drrino.com.learningdemo.widget.RotateTextView
+        android:id="@+id/splash_author"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:textSize="28sp"
+        android:text="@string/via_author"
+        android:layout_gravity="bottom|end"/>
+
+</FrameLayout>
