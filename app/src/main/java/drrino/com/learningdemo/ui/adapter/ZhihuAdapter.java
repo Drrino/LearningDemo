@@ -169,7 +169,7 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    private static class ContentViewHolder extends RecyclerView.ViewHolder {
+     static class ContentViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_daily_item_title)
         TextView title;
@@ -186,7 +186,7 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    private static class DateViewHolder extends RecyclerView.ViewHolder {
+     static class DateViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_daily_date)
         TextView tvDate;
 
@@ -198,7 +198,7 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    private static class TopViewHolder extends RecyclerView.ViewHolder {
+     static class TopViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.vp_top)
         ViewPager mViewpager;

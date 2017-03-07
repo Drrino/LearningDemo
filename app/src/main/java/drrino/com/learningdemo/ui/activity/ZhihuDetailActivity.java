@@ -13,6 +13,7 @@ import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.base.BaseActivity;
 import drrino.com.learningdemo.util.HtmlUtil;
 import drrino.com.learningdemo.util.RxUtil;
+import drrino.com.learningdemo.util.SnackbarUtil;
 
 /**
  * Created by drrino on 2017/3/6.
@@ -52,7 +53,7 @@ public class ZhihuDetailActivity extends BaseActivity {
                 String htmlData = HtmlUtil.createHtmlData(zhihuDetailBean.getBody(),
                     zhihuDetailBean.getCss(), zhihuDetailBean.getJs());
                 webView.loadData(htmlData, HtmlUtil.MIME_TYPE, HtmlUtil.ENCODING);
-            });
+            },throwable -> SnackbarUtil.showShort(getWindow().getDecorView(),"加载错误"));
     }
 
 
