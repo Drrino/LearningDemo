@@ -34,7 +34,6 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private TopAdapter mAdapter;
     private int mCurrentPage;
     private List<ZhihuItem> mItems = new ArrayList<>();
-    private OnItemClickListener onItemClickListener;
 
     public static final int TYPE_TOP = 0;
     public static final int TYPE_DATE = 1;
@@ -208,15 +207,5 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-    }
-
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-
-    interface OnItemClickListener {
-        void onItemClick(int position, View view);
     }
 }
