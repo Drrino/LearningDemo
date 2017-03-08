@@ -116,7 +116,7 @@ public class RetrofitHelper {
         return zhihuApiService.getDailyBeforeList(date);
     }
 
-    public Observable<ZhihuDetailBean> fetchDetailInfo(int id) {
+    public Observable<ZhihuDetailBean> fetchDetailInfo(String id) {
         return zhihuApiService.getDetailInfo(id);
     }
 

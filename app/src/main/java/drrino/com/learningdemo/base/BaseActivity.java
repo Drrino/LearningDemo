@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import drrino.com.learningdemo.App;
+import drrino.com.learningdemo.http.RetrofitHelper;
 import me.yokeyword.fragmentation.SupportActivity;
 
 /**
@@ -16,6 +17,7 @@ import me.yokeyword.fragmentation.SupportActivity;
 public abstract class BaseActivity extends SupportActivity {
     public Context mContext;
     public Unbinder mUnBinder;
+    public RetrofitHelper mRetrofitHelper = new RetrofitHelper();
 
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
