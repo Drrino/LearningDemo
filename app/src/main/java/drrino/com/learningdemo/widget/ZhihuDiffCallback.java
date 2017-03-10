@@ -1,7 +1,7 @@
 package drrino.com.learningdemo.widget;
 
 import android.support.v7.util.DiffUtil;
-import drrino.com.learningdemo.bean.DailyListBean;
+import drrino.com.learningdemo.model.bean.DailyListBean;
 import java.util.List;
 
 public class ZhihuDiffCallback extends DiffUtil.Callback{

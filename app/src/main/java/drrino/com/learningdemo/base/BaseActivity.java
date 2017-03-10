@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import drrino.com.learningdemo.App;
-import drrino.com.learningdemo.http.RetrofitHelper;
+import drrino.com.learningdemo.model.http.RetrofitHelper;
 import me.yokeyword.fragmentation.SupportActivity;
 
 /**

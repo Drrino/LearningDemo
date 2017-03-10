@@ -1,15 +1,15 @@
 package drrino.com.learningdemo.api;
 
-import drrino.com.learningdemo.bean.CommentBean;
-import drrino.com.learningdemo.bean.DailyListBean;
-import drrino.com.learningdemo.bean.DetailExtraBean;
-import drrino.com.learningdemo.bean.HotListBean;
-import drrino.com.learningdemo.bean.SectionChildListBean;
-import drrino.com.learningdemo.bean.SectionListBean;
-import drrino.com.learningdemo.bean.ThemeChildListBean;
-import drrino.com.learningdemo.bean.ThemeListBean;
-import drrino.com.learningdemo.bean.WelcomeBean;
-import drrino.com.learningdemo.bean.ZhihuDetailBean;
+import drrino.com.learningdemo.model.bean.CommentBean;
+import drrino.com.learningdemo.model.bean.DailyListBean;
+import drrino.com.learningdemo.model.bean.DetailExtraBean;
+import drrino.com.learningdemo.model.bean.HotListBean;
+import drrino.com.learningdemo.model.bean.SectionChildListBean;
+import drrino.com.learningdemo.model.bean.SectionListBean;
+import drrino.com.learningdemo.model.bean.ThemeChildListBean;
+import drrino.com.learningdemo.model.bean.ThemeListBean;
+import drrino.com.learningdemo.model.bean.WelcomeBean;
+import drrino.com.learningdemo.model.bean.ZhihuDetailBean;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;

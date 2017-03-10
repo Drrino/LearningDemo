@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import drrino.com.learningdemo.model.http.RetrofitHelper;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -18,6 +19,7 @@ public abstract class BaseFragment extends SupportFragment {
     protected Context mContext;
     private Unbinder mUnBinder;
     private boolean isInited = false;
+    public RetrofitHelper mRetrofitHelper = new RetrofitHelper();
 
 
     @Override public void onAttach(Context context) {

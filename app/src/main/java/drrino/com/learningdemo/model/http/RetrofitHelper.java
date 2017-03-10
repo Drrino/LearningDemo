@@ -1,12 +1,12 @@
-package drrino.com.learningdemo.http;
+package drrino.com.learningdemo.model.http;
 
 import drrino.com.learningdemo.BuildConfig;
 import drrino.com.learningdemo.Constants;
 import drrino.com.learningdemo.api.ZhihuApi;
-import drrino.com.learningdemo.bean.DailyListBean;
-import drrino.com.learningdemo.bean.DetailExtraBean;
-import drrino.com.learningdemo.bean.WelcomeBean;
-import drrino.com.learningdemo.bean.ZhihuDetailBean;
+import drrino.com.learningdemo.model.bean.DailyListBean;
+import drrino.com.learningdemo.model.bean.DetailExtraBean;
+import drrino.com.learningdemo.model.bean.WelcomeBean;
+import drrino.com.learningdemo.model.bean.ZhihuDetailBean;
 import drrino.com.learningdemo.util.SystemUtil;
 import java.io.File;
 import java.io.IOException;

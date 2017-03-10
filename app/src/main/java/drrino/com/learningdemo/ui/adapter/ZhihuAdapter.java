@@ -2,6 +2,7 @@ package drrino.com.learningdemo.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,8 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import drrino.com.learningdemo.R;
-import drrino.com.learningdemo.bean.DailyListBean;
-import drrino.com.learningdemo.bean.ZhihuItem;
+import drrino.com.learningdemo.model.bean.DailyListBean;
+import drrino.com.learningdemo.model.bean.ZhihuItem;
 import drrino.com.learningdemo.ui.activity.ZhihuDetailActivity;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +36,9 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private int mCurrentPage;
     private List<ZhihuItem> mItems = new ArrayList<>();
 
-    public static final int TYPE_TOP = 0;
-    public static final int TYPE_DATE = 1;
-    public static final int TYPE_ITEM = 2;
+    private static final int TYPE_TOP = 0;
+    private static final int TYPE_DATE = 1;
+    private static final int TYPE_ITEM = 2;
 
 
     public ZhihuAdapter(Context mContext, DailyListBean dailyListBean) {
@@ -150,13 +151,21 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         } else if (holder instanceof ContentViewHolder) {
             ((ContentViewHolder) holder).title.setText(
                 mItems.get(position).getStories().getTitle());
+            if (dailyListBean.getStories().get(position).getReadState()) {
+                ((ContentViewHolder) holder).title.setTextColor(
+                    ContextCompat.getColor(mContext, R.color.news_read));
+            } else {
+                ((ContentViewHolder) holder).title.setTextColor(
+                    ContextCompat.getColor(mContext, R.color.news_unread));
+            }
             Glide.with(mContext)
                 .load(mItems.get(position).getStories().getImages().get(0))
                 .centerCrop()
                 .into(((ContentViewHolder) holder).image);
             ((ContentViewHolder) holder).dailyItem.setOnClickListener(view -> {
+                dailyListBean.getStories().get(position).setReadState(true);
                 Intent intent = new Intent(mContext, ZhihuDetailActivity.class);
-                intent.putExtra("id",mItems.get(position).getStories().getId());
+                intent.putExtra("id", mItems.get(position).getStories().getId());
                 mContext.startActivity(intent);
             });
         }
@@ -168,7 +177,7 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-     static class ContentViewHolder extends RecyclerView.ViewHolder {
+    static class ContentViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_daily_item_title)
         TextView title;
@@ -185,7 +194,7 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-     static class DateViewHolder extends RecyclerView.ViewHolder {
+    static class DateViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_daily_date)
         TextView tvDate;
 
@@ -197,7 +206,7 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-     static class TopViewHolder extends RecyclerView.ViewHolder {
+    static class TopViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.vp_top)
         ViewPager mViewpager;

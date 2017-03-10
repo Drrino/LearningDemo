@@ -3,5 +3,5 @@
 
     <string name="via_author">via.drrino</string>
     <string name="action_save">保存</string>
-    <string name="save">保存</string>
+    <string name="action_copy">复制链接</string>
 </resources>

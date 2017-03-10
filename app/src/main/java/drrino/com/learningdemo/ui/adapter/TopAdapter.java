@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import drrino.com.learningdemo.R;
-import drrino.com.learningdemo.bean.DailyListBean;
+import drrino.com.learningdemo.model.bean.DailyListBean;
 import drrino.com.learningdemo.ui.activity.ZhihuDetailActivity;
 import java.util.List;
 

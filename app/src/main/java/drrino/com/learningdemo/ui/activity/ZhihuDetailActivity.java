@@ -4,20 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.base.BaseActivity;
 import drrino.com.learningdemo.util.HtmlUtil;
 import drrino.com.learningdemo.util.RxUtil;
 import drrino.com.learningdemo.util.SnackbarUtil;
-import uk.co.senab.photoview.PhotoViewAttacher;
+import drrino.com.learningdemo.util.SystemUtil;
 
 /**
  * Created by drrino on 2017/3/6.
@@ -32,6 +34,9 @@ public class ZhihuDetailActivity extends BaseActivity {
     @BindView(R.id.web_view) WebView webView;
 
     private String id;
+    private String barImg;
+    private String url;
+
 
     @Override protected int getLayoutId() {
         return R.layout.activity_zhihu_detail_page;
@@ -50,7 +55,9 @@ public class ZhihuDetailActivity extends BaseActivity {
     private void fetchDetailData() {
         mRetrofitHelper.fetchDetailInfo(id).compose(RxUtil.rxSchedulerHelper()).subscribe(
             zhihuDetailBean -> {
-                Glide.with(mContext).load(zhihuDetailBean.getImage()).centerCrop().into(ivBarImg);
+                barImg = zhihuDetailBean.getImage();
+                url = zhihuDetailBean.getShare_url();
+                Glide.with(mContext).load(barImg).centerCrop().into(ivBarImg);
                 tvImgTitle.setText(zhihuDetailBean.getTitle());
                 tvImgSource.setText(zhihuDetailBean.getImage_source());
                 String htmlData = HtmlUtil.createHtmlData(zhihuDetailBean.getBody(),
@@ -112,9 +119,34 @@ public class ZhihuDetailActivity extends BaseActivity {
 
         @android.webkit.JavascriptInterface
         public void showImage(String img) {
-            Intent intent =new Intent(mContext,CheckImageActivity.class);
-            intent.putExtra("url",img);
+            Intent intent = new Intent(mContext, CheckImageActivity.class);
+            intent.putExtra("url", img);
             startActivity(intent);
         }
+    }
+
+
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_copy, menu);
+        return true;
+    }
+
+
+    @Override public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.copy:
+                SystemUtil.copyToClipBoard(mContext, url);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @OnClick(R.id.iv_bar_img)
+    protected void clickBarImg() {
+        Intent intent = new Intent(this, CheckImageActivity.class);
+        intent.putExtra("url", barImg);
+        startActivity(intent);
     }
 }

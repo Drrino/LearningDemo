@@ -11,8 +11,11 @@ import android.widget.Toast;
 import butterknife.BindView;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.base.BaseFragment;
-import drrino.com.learningdemo.http.RetrofitHelper;
+import drrino.com.learningdemo.model.bean.DailyListBean;
+import drrino.com.learningdemo.model.db.RealmHelper;
+import drrino.com.learningdemo.model.http.RetrofitHelper;
 import drrino.com.learningdemo.ui.adapter.ZhihuAdapter;
+import java.util.List;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -26,8 +29,9 @@ public class ZhihuDailyFragment extends BaseFragment {
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.fragment_container) FrameLayout fragmentContainer;
 
-    private RetrofitHelper mRetrofitHelper;
+
     private ZhihuAdapter mAdapter;
+    private RealmHelper realmHelper;
     private LinearLayoutManager linearLayoutManager;
     private String time;
 
@@ -38,7 +42,7 @@ public class ZhihuDailyFragment extends BaseFragment {
 
 
     @Override protected void initData() {
-        mRetrofitHelper = new RetrofitHelper();
+        realmHelper = new RealmHelper();
         initView();
         showContent();
         bindListener();
@@ -60,6 +64,10 @@ public class ZhihuDailyFragment extends BaseFragment {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(dailyListBean -> {
             mAdapter = new ZhihuAdapter(mContext, dailyListBean);
+            List<DailyListBean.StoriesBean> list = dailyListBean.getStories();
+            for(DailyListBean.StoriesBean item : list) {
+                item.setReadState(realmHelper.queryNewsId(item.getId()));
+            }
             rvDaily.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
             new Handler().postDelayed(() -> swipeRefresh.setRefreshing(false), 1500);
@@ -73,6 +81,10 @@ public class ZhihuDailyFragment extends BaseFragment {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 dailyBeforeListBean -> {
+                    List<DailyListBean.StoriesBean> list = dailyBeforeListBean.getStories();
+                    for(DailyListBean.StoriesBean item : list) {
+                        item.setReadState(realmHelper.queryNewsId(item.getId()));
+                    }
                     mAdapter.appendList(dailyBeforeListBean);
                     mAdapter.notifyDataSetChanged();
                     time = dailyBeforeListBean.getDate();

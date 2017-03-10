@@ -1,4 +1,4 @@
-package drrino.com.learningdemo.bean;
+package drrino.com.learningdemo.model.bean;
 
 import java.util.List;
 

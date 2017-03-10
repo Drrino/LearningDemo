@@ -4,13 +4,17 @@ import android.graphics.Bitmap;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.base.BaseActivity;
+import drrino.com.learningdemo.util.SystemUtil;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
@@ -18,10 +22,12 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  */
 
 public class CheckImageActivity extends BaseActivity {
-    @BindView(R.id.toolbar) Toolbar toolBar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.check_iv_detail) ImageView checkIvDetail;
     private PhotoViewAttacher attacher;
     private Bitmap bitmap;
+    private String url;
+    //private boolean isShow = true;
 
 
     @Override protected int getLayoutId() {
@@ -30,9 +36,10 @@ public class CheckImageActivity extends BaseActivity {
 
 
     @Override protected void initData() {
-        setToolbar(toolBar, "");
+        setToolbar(toolbar, "");
+        url = getIntent().getStringExtra("url");
         Glide.with(mContext)
-            .load(getIntent().getStringExtra("url"))
+            .load(url)
             .asBitmap()
             .into(new SimpleTarget<Bitmap>() {
                 @Override
@@ -55,14 +62,20 @@ public class CheckImageActivity extends BaseActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.save:
-                savePicture();
+                SystemUtil.saveBitmapToFile(mContext, url, bitmap, checkIvDetail, false);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
 
-    private void savePicture() {
-
+    @OnClick(R.id.check_iv_detail)
+    protected void onClickPic() {
+        //isShow = !isShow;
+        //if (isShow){
+        //    getSupportActionBar().show();
+        //}else {
+        //    toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
+        //}
     }
 }
