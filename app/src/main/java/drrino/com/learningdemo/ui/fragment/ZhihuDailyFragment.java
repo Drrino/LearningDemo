@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
@@ -66,12 +65,11 @@ public class ZhihuDailyFragment extends BaseFragment {
         mRetrofitHelper.fetchDailyListInfo()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(dailyListBean -> {
-            List<DailyListBean.StoriesBean> list = dailyListBean.getStories();
-            for (DailyListBean.StoriesBean item : list) {
-                item.setReadState(realmHelper.queryNewsId(item.getId()));
-                if (realmHelper.queryNewsId(item.getId())){
-                    Log.e("aaaaaaaa",item.getId()+"");
-                }
+            for (int i = 0; i < dailyListBean.getStories().size(); i++) {
+                dailyListBean.getStories()
+                    .get(i)
+                    .setReadState(
+                        realmHelper.queryNewsId(dailyListBean.getStories().get(i).getId()));
             }
             mAdapter.setList(dailyListBean);
             mAdapter.notifyDataSetChanged();
@@ -142,5 +140,11 @@ public class ZhihuDailyFragment extends BaseFragment {
             Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
             fragmentContainer.startAnimation(fadeOut);
         }
+    }
+
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        realmHelper.close();
     }
 }
