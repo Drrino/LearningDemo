@@ -1,7 +1,6 @@
 package drrino.com.learningdemo.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,6 @@ import com.bumptech.glide.Glide;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.model.bean.DailyListBean;
 import drrino.com.learningdemo.model.bean.ZhihuItem;
-import drrino.com.learningdemo.ui.activity.ZhihuDetailActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -35,21 +33,21 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private TopAdapter mAdapter;
     private int mCurrentPage;
     private List<ZhihuItem> mItems = new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
 
     private static final int TYPE_TOP = 0;
     private static final int TYPE_DATE = 1;
     private static final int TYPE_ITEM = 2;
 
 
-    public ZhihuAdapter(Context mContext, DailyListBean dailyListBean) {
+    public ZhihuAdapter(Context mContext) {
         this.mContext = mContext;
-        this.dailyListBean = dailyListBean;
         inflater = LayoutInflater.from(mContext);
-        appendList(dailyListBean);
     }
 
 
     public void setList(DailyListBean dailyStories) {
+        this.dailyListBean = dailyStories;
         mItems.clear();
         appendList(dailyStories);
     }
@@ -151,7 +149,7 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         } else if (holder instanceof ContentViewHolder) {
             ((ContentViewHolder) holder).title.setText(
                 mItems.get(position).getStories().getTitle());
-            if (dailyListBean.getStories().get(position).getReadState()) {
+            if (mItems.get(position).getStories().getReadState()) {
                 ((ContentViewHolder) holder).title.setTextColor(
                     ContextCompat.getColor(mContext, R.color.news_read));
             } else {
@@ -162,12 +160,8 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 .load(mItems.get(position).getStories().getImages().get(0))
                 .centerCrop()
                 .into(((ContentViewHolder) holder).image);
-            ((ContentViewHolder) holder).dailyItem.setOnClickListener(view -> {
-                dailyListBean.getStories().get(position).setReadState(true);
-                Intent intent = new Intent(mContext, ZhihuDetailActivity.class);
-                intent.putExtra("id", mItems.get(position).getStories().getId());
-                mContext.startActivity(intent);
-            });
+            ((ContentViewHolder) holder).dailyItem.setOnClickListener(
+                view -> onItemClickListener.onItemClick(position, view,mItems.get(position).getStories()));
         }
     }
 
@@ -216,5 +210,15 @@ public class ZhihuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, View view, DailyListBean.StoriesBean stories);
     }
 }

@@ -1,8 +1,8 @@
 package drrino.com.learningdemo.model.db;
 
+import android.content.Context;
 import drrino.com.learningdemo.model.bean.ReadStateBean;
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 /**
@@ -15,11 +15,9 @@ public class RealmHelper {
     private Realm mRealm;
 
 
-    public RealmHelper() {
-        mRealm = Realm.getInstance(
-            new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded()
-                .name(DB_NAME)
-                .build());
+    public RealmHelper(Context mContext) {
+        Realm.init(mContext);
+        mRealm = Realm.getDefaultInstance();
     }
 
 
@@ -29,9 +27,9 @@ public class RealmHelper {
      * @param id 使用@PrimaryKey注解后copyToRealm需要替换为copyToRealmOrUpdate
      */
     public void insertNewsId(String id) {
+        mRealm.beginTransaction();
         ReadStateBean bean = new ReadStateBean();
         bean.setId(id);
-        mRealm.beginTransaction();
         mRealm.copyToRealmOrUpdate(bean);
         mRealm.commitTransaction();
     }
@@ -43,9 +41,7 @@ public class RealmHelper {
     public boolean queryNewsId(String id) {
         RealmResults<ReadStateBean> results = mRealm.where(ReadStateBean.class).findAll();
         for (ReadStateBean item : results) {
-            if (item.getId() == id) {
-                return true;
-            }
+            return item.getId() == id;
         }
         return false;
     }

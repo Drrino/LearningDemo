@@ -1,9 +1,11 @@
 package drrino.com.learningdemo.ui.fragment;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
@@ -13,7 +15,7 @@ import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.base.BaseFragment;
 import drrino.com.learningdemo.model.bean.DailyListBean;
 import drrino.com.learningdemo.model.db.RealmHelper;
-import drrino.com.learningdemo.model.http.RetrofitHelper;
+import drrino.com.learningdemo.ui.activity.ZhihuDetailActivity;
 import drrino.com.learningdemo.ui.adapter.ZhihuAdapter;
 import java.util.List;
 import rx.android.schedulers.AndroidSchedulers;
@@ -29,7 +31,6 @@ public class ZhihuDailyFragment extends BaseFragment {
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.fragment_container) FrameLayout fragmentContainer;
 
-
     private ZhihuAdapter mAdapter;
     private RealmHelper realmHelper;
     private LinearLayoutManager linearLayoutManager;
@@ -42,7 +43,7 @@ public class ZhihuDailyFragment extends BaseFragment {
 
 
     @Override protected void initData() {
-        realmHelper = new RealmHelper();
+        realmHelper = new RealmHelper(mContext);
         initView();
         showContent();
         bindListener();
@@ -55,6 +56,8 @@ public class ZhihuDailyFragment extends BaseFragment {
         linearLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL,
             false);
         rvDaily.setLayoutManager(linearLayoutManager);
+        mAdapter = new ZhihuAdapter(mContext);
+        rvDaily.setAdapter(mAdapter);
 
     }
 
@@ -63,12 +66,14 @@ public class ZhihuDailyFragment extends BaseFragment {
         mRetrofitHelper.fetchDailyListInfo()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(dailyListBean -> {
-            mAdapter = new ZhihuAdapter(mContext, dailyListBean);
             List<DailyListBean.StoriesBean> list = dailyListBean.getStories();
-            for(DailyListBean.StoriesBean item : list) {
+            for (DailyListBean.StoriesBean item : list) {
                 item.setReadState(realmHelper.queryNewsId(item.getId()));
+                if (realmHelper.queryNewsId(item.getId())){
+                    Log.e("aaaaaaaa",item.getId()+"");
+                }
             }
-            rvDaily.setAdapter(mAdapter);
+            mAdapter.setList(dailyListBean);
             mAdapter.notifyDataSetChanged();
             new Handler().postDelayed(() -> swipeRefresh.setRefreshing(false), 1500);
             time = dailyListBean.getDate();
@@ -82,7 +87,7 @@ public class ZhihuDailyFragment extends BaseFragment {
             .subscribe(
                 dailyBeforeListBean -> {
                     List<DailyListBean.StoriesBean> list = dailyBeforeListBean.getStories();
-                    for(DailyListBean.StoriesBean item : list) {
+                    for (DailyListBean.StoriesBean item : list) {
                         item.setReadState(realmHelper.queryNewsId(item.getId()));
                     }
                     mAdapter.appendList(dailyBeforeListBean);
@@ -105,6 +110,14 @@ public class ZhihuDailyFragment extends BaseFragment {
                     }
                 }
             }
+        });
+        mAdapter.setOnItemClickListener((position, view, stories) -> {
+            stories.setReadState(true);
+            realmHelper.insertNewsId(stories.getId());
+            Intent intent = new Intent(mContext, ZhihuDetailActivity.class);
+            intent.putExtra("id", stories.getId());
+            mContext.startActivity(intent);
+            mAdapter.notifyDataSetChanged();
         });
     }
 
