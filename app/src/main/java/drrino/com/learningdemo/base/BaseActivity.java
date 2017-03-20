@@ -9,12 +9,13 @@ import butterknife.Unbinder;
 import drrino.com.learningdemo.App;
 import drrino.com.learningdemo.model.http.RetrofitHelper;
 import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 
 /**
  * Created by Dell1 on 2017/3/2.
  */
 
-public abstract class BaseActivity extends SupportActivity {
+public abstract class BaseActivity extends SwipeBackActivity {
     public Context mContext;
     public Unbinder mUnBinder;
     public RetrofitHelper mRetrofitHelper = new RetrofitHelper();

@@ -49,7 +49,8 @@ dependencies {
     compile 'io.reactivex:rxjava:1.2.6'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
-    compile 'me.yokeyword:fragmentation:0.10.1'
+    compile 'me.yokeyword:fragmentation:0.10.0'
+    compile 'me.yokeyword:fragmentation-swipeback:0.7.9'
 
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
