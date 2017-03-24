@@ -5,4 +5,11 @@
         <item>干货</item>
         <item>我的</item>
     </array>
+
+    <array name="gank_classify">
+        <item>gank</item>
+        <item>picture</item>
+        <item>android</item>
+        <item>ios</item>
+    </array>
 </resources>

@@ -1,4 +1,4 @@
-package drrino.com.learningdemo.ui.fragment;
+package drrino.com.learningdemo.ui.common.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

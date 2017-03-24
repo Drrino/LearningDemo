@@ -1,4 +1,4 @@
-package drrino.com.learningdemo.ui.adapter;
+package drrino.com.learningdemo.ui.zhihu.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.model.bean.DailyListBean;
-import drrino.com.learningdemo.ui.activity.ZhihuDetailActivity;
+import drrino.com.learningdemo.ui.zhihu.activity.ZhihuDetailActivity;
 import java.util.List;
 
 public class TopAdapter extends PagerAdapter {

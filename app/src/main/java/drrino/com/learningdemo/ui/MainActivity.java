@@ -1,4 +1,4 @@
-package drrino.com.learningdemo.ui.activity;
+package drrino.com.learningdemo.ui;
 
 import android.support.v4.app.Fragment;
 import butterknife.BindView;
@@ -7,8 +7,8 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.base.BaseActivity;
-import drrino.com.learningdemo.ui.adapter.ClassifyViewPagerAdapter;
-import drrino.com.learningdemo.ui.fragment.ZhihuDailyFragment;
+import drrino.com.learningdemo.ui.common.adapter.ClassifyViewPagerAdapter;
+import drrino.com.learningdemo.ui.zhihu.fragment.ZhihuDailyFragment;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;

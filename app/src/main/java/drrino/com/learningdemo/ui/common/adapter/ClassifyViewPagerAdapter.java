@@ -1,11 +1,12 @@
-package drrino.com.learningdemo.ui.adapter;
+package drrino.com.learningdemo.ui.common.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
-import drrino.com.learningdemo.ui.fragment.SimpleFragment;
-import drrino.com.learningdemo.ui.fragment.ZhihuDailyFragment;
+import drrino.com.learningdemo.ui.gank.fragment.GankFragment;
+import drrino.com.learningdemo.ui.common.fragment.SimpleFragment;
+import drrino.com.learningdemo.ui.zhihu.fragment.ZhihuDailyFragment;
 
 /**
  * Created by drrino on 2017/3/1.
@@ -25,9 +26,9 @@ public class ClassifyViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 1) {
-            return new SimpleFragment();
+            return new GankFragment();
         } else if (position == 2) {
-            return new ZhihuDailyFragment();
+            return new SimpleFragment();
         } else {
             return new ZhihuDailyFragment();
         }

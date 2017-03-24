@@ -1,4 +1,4 @@
-package drrino.com.learningdemo.ui.activity;
+package drrino.com.learningdemo.ui.zhihu.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.base.BaseActivity;
+import drrino.com.learningdemo.ui.common.CheckImageActivity;
 import drrino.com.learningdemo.util.HtmlUtil;
 import drrino.com.learningdemo.util.RxUtil;
 import drrino.com.learningdemo.util.SnackbarUtil;

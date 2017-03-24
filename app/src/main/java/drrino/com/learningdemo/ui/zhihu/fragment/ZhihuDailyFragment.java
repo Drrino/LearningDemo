@@ -1,4 +1,4 @@
-package drrino.com.learningdemo.ui.fragment;
+package drrino.com.learningdemo.ui.zhihu.fragment;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -14,8 +14,8 @@ import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.base.BaseFragment;
 import drrino.com.learningdemo.model.bean.DailyListBean;
 import drrino.com.learningdemo.model.db.RealmHelper;
-import drrino.com.learningdemo.ui.activity.ZhihuDetailActivity;
-import drrino.com.learningdemo.ui.adapter.ZhihuAdapter;
+import drrino.com.learningdemo.ui.zhihu.activity.ZhihuDetailActivity;
+import drrino.com.learningdemo.ui.zhihu.adapter.ZhihuAdapter;
 import java.util.List;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -37,7 +37,7 @@ public class ZhihuDailyFragment extends BaseFragment {
 
 
     @Override protected int getLayoutId() {
-        return R.layout.fragment_zhihu_daily;
+        return R.layout.fragment_common_page;
     }
 
 

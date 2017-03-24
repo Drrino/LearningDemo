@@ -1,4 +1,4 @@
-package drrino.com.learningdemo.ui.activity;
+package drrino.com.learningdemo.ui.common;
 
 import android.graphics.Bitmap;
 import android.support.v7.widget.Toolbar;

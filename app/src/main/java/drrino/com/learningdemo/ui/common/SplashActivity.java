@@ -1,4 +1,4 @@
-package drrino.com.learningdemo.ui.activity;
+package drrino.com.learningdemo.ui.common;
 
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -8,6 +8,7 @@ import butterknife.BindView;
 import com.bumptech.glide.Glide;
 import drrino.com.learningdemo.R;
 import drrino.com.learningdemo.base.BaseActivity;
+import drrino.com.learningdemo.ui.MainActivity;
 import drrino.com.learningdemo.util.RxUtil;
 import drrino.com.learningdemo.widget.RotateTextView;
 import java.util.concurrent.TimeUnit;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#8f4b2e</color>
-    <color name="colorPrimaryDark">#5c311f</color>
+    <color name="colorPrimary">#5c311f</color>
+    <color name="colorPrimaryDark">#8f4b2e</color>
     <color name="colorAccent">#df5115</color>
     <color name="colorBackground">#EEEEEE</color>
     <color name="colorCard">#FFFFFF</color>
@@ -15,7 +15,7 @@
     <!--Splash-->
     <color name="white">#FFFFFF</color>
     <color name="gery">#FAFAFA</color>
-    <color name="darkgery">#797979</color>
+    <color name="dark_gery">#797979</color>
     <color name="trangery">#512e2e2e</color>
     <color name="black">#252525</color>
 </resources>
